@@ -4,13 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,8 +40,22 @@ class MainActivity : ComponentActivity() {
 // Bir fonksiyon eğer UI fonksiyonu ise.. @Composable olması zorunludur..
 @Composable
 fun MyAppStart(modifier: Modifier) {
-    Column( modifier= modifier ) {
-        Text("Merhaba")
-        Text("Merhaba 2")
+    // Normal tanımlama => Ekranda değişikliği göremezsin
+    //var count:Int=0
+
+    // Androidde ekranı etkileyecek her türlü değişken bu şekilde tanımlanır..
+    var count = remember { mutableStateOf(0) }
+    // Android değişkeni..
+
+
+    Column( modifier = modifier, verticalArrangement = Arrangement.SpaceAround ) {
+        Text("Sayı ${count.value}")
+        Button(onClick = {
+            count.value++
+        }) {
+            Text("Tıkla")
+        }
     }
 }
+
+// Recomposition => Ekranın ilgili kısmının tekrar çalıştırılmasına kabaca recomposition denir.
