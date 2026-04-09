@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -51,21 +54,53 @@ fun MyAppStart(modifier: Modifier) {
     // Androidde ekranı etkileyecek her türlü değişken bu şekilde tanımlanır..
     // Android değişkeni..
 
+    val todos = listOf<String>(
+        "Todo 1",
+        "Todo 2",
+        "Todo 3"
+    )
 
     Column( modifier = modifier, verticalArrangement = Arrangement.SpaceAround ) {
         //Sayac()
-        Test()
+        //Test()
+        Liste(todos)
     }
 }
+
+@Composable
+fun Liste(
+    todos: List<String>
+) {
+    LazyColumn(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        items(todos) {
+            todo -> ListeElemanı("Yapılacak İş: $todo")
+        }
+    }
+}
+
+@Composable
+fun ListeElemanı(todo:String){
+    Box(modifier = Modifier.fillMaxSize().padding(15.dp).background(Color.Gray).border(1.dp, Color.Red)){
+        Text(todo)
+    }
+}
+
 @Composable
 fun Test() {
-    Box(modifier = Modifier.fillMaxSize().background(Color.Red))
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(Color.Red))
     {
-        Column(modifier = Modifier.fillMaxSize().padding(24.dp).background(Color.Blue),
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(24.dp)
+            .background(Color.Blue),
                verticalArrangement = Arrangement.SpaceEvenly,
                horizontalAlignment = Alignment.CenterHorizontally) {
             Text("Merhaba")
-            Row(modifier = Modifier.fillMaxWidth().background(Color.Yellow),
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Yellow),
                 horizontalArrangement = Arrangement.SpaceEvenly) {
                 Text("Merhaba 4")
                 Text("Merhaba 5")
