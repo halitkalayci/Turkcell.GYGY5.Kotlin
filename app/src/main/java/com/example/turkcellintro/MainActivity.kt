@@ -51,14 +51,6 @@ class MainActivity : ComponentActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        val supabaseClient = createSupabaseClient(
-            supabaseUrl = "https://wcjhbxskgxjxpthgrhej.supabase.co", // TODO: local.properties'den gelmeli
-            supabaseKey = "sb_publishable_Szgrh1f6814wuvwL471jlA_TXlbjvbR"
-        ) {
-            install(Postgrest)
-        }
-
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
