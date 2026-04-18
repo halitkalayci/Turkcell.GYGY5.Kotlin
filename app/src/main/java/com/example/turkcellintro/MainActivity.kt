@@ -129,10 +129,6 @@ fun ToDoList(toDoList: List<Todo>, onDelete: (Int) -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically) {
                 Text(todo.title)
-                when{
-                    todo.completed -> {Icon(imageVector = Icons.Default.Check, contentDescription = "")}
-                    else -> {Icon(imageVector = Icons.Default.Close, contentDescription = "")}
-                }
                 Text(todo.id.toString())
                 IconButton(onClick = {
                      onDelete(index)
