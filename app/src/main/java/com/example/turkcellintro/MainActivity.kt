@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -35,6 +36,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController;
 import com.example.turkcellintro.model.Todo
 import com.example.turkcellintro.viewmodel.ToDoListViewModel
+import io.github.jan.supabase.createSupabaseClient
 
 // Burada ekran tanımlarını yap.
 sealed class Screen(val route: String) {
@@ -44,6 +46,14 @@ sealed class Screen(val route: String) {
 
 // Telefon çevirildiği an => Yeniden başlatılır.
 class MainActivity : ComponentActivity() {
+    val supabaseClient = createSupabaseClient(
+        supabaseUrl = "", // local.properties
+        supabaseKey = ""
+    ) {
+        //install(plugin = Postgrest)
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -123,7 +133,10 @@ fun ToDoList(toDoList: List<Todo>, onDelete: (Int) -> Unit) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically) {
                 Text(todo.title)
-                Text(todo.completed.toString())
+                when{
+                    todo.completed -> {Icon(imageVector = Icons.Default.Check, contentDescription = "")}
+                    else -> {Icon(imageVector = Icons.Default.Close, contentDescription = "")}
+                }
                 Text(todo.id.toString())
                 IconButton(onClick = {
                      onDelete(index)
