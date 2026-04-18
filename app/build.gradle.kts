@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    // TODO: Move all of them to libs.versions.toml
     implementation("androidx.navigation:navigation-compose:2.9.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.10.0")
 
@@ -48,7 +49,9 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     implementation("io.github.jan-tennert.supabase:supabase-kt:3.2.4")
+    implementation("io.ktor:ktor-client-android:3.1.1")
 
+    implementation(libs.supabase.postgrest)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

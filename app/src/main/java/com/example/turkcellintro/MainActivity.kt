@@ -37,6 +37,8 @@ import androidx.navigation.compose.rememberNavController;
 import com.example.turkcellintro.model.Todo
 import com.example.turkcellintro.viewmodel.ToDoListViewModel
 import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.postgrest.postgrest
 
 // Burada ekran tanımlarını yap.
 sealed class Screen(val route: String) {
@@ -46,15 +48,17 @@ sealed class Screen(val route: String) {
 
 // Telefon çevirildiği an => Yeniden başlatılır.
 class MainActivity : ComponentActivity() {
-    val supabaseClient = createSupabaseClient(
-        supabaseUrl = "", // local.properties
-        supabaseKey = ""
-    ) {
-        //install(plugin = Postgrest)
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val supabaseClient = createSupabaseClient(
+            supabaseUrl = "https://wcjhbxskgxjxpthgrhej.supabase.co", // TODO: local.properties'den gelmeli
+            supabaseKey = "sb_publishable_Szgrh1f6814wuvwL471jlA_TXlbjvbR"
+        ) {
+            install(Postgrest)
+        }
+
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
