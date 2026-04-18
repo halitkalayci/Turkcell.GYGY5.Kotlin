@@ -82,13 +82,18 @@ fun Homepage(modifier: Modifier)
     val isLoading by todoViewModel.isLoading.collectAsState()
     val error by todoViewModel.error.collectAsState()
 
+    // TODO: 1. Silme işlemi sonrası veriyi yenile.
+    // TODO: 2. Ekleme işlemi sayfası yap, ekleme sonrası yine veri yenilensin.
     Column(modifier= modifier.fillMaxSize()){
         when {
             isLoading -> {Text("Yükleniyor")}
             error != null -> {Text("Hata aldı: $error")}
             else -> {
-                ToDoList(todos) { }
+                ToDoList(todos, onDelete = { id -> todoViewModel.delete(id) })
             }
+        }
+        Button(onClick = {}) {
+            Text("Tıkla")
         }
     }
 }
@@ -128,10 +133,10 @@ fun ToDoList(toDoList: List<Todo>, onDelete: (Int) -> Unit) {
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically) {
-                Text(todo.title)
                 Text(todo.id.toString())
+                Text(todo.title)
                 IconButton(onClick = {
-                     onDelete(index)
+                     onDelete(todo.id)
                 }) {
                     Icon(imageVector = Icons.Default.Close, contentDescription = "Sil")
                 }

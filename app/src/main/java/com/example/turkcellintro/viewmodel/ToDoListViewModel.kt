@@ -42,4 +42,15 @@ class ToDoListViewModel : ViewModel()
             }
         }
     }
+
+    fun delete(id: Int){
+        viewModelScope.launch {
+            try {
+                repository.delete(id)
+            }catch (e: Exception)
+            {
+               println(e.message)
+            }
+        }
+    }
 }
